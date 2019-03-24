@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #main{
+            position:relative;
+        }
+        .pin{
+            padding:15px 0 0 15px;
+            /*border:5px solid black;*/
+            float:left;
+        }
+        .box{
+            padding:5px;
+            border:1px solid #cccccc;
+            box-shadow:0 0 2px 0px #ccc;
+            border-radius: 5px;
+        }
+        .box img{
+            width:236px;
+            height:auto;
+        }
+    </style>
+    <!--<script src="wfs.js"></script>-->
+    <script>
+        window.onload=function(){
+            waterfall();
+            var dataImg={"data":[{src:"image/1.jpg"},{src:"image/2.jpg"},{src:"image/3.jpg"},{src:"image/4.jpg"},{src:"image/5.jpg"},{src:"image/6.jpg"},{src:"image/7.jpg"},
+                {src:"image/8.jpg"},{src:"image/9.jpg"},{src:"image/10.jpg"},{src:"image/11.jpg"},{src:"image/12.jpg"},{src:"image/13.jpg"},{src:"image/14.jpg"},{src:"image/15.jpg"}]}
+        }
+        function waterfall(){
+            var apin=get();
+            var iPinW=apin[0].offsetWidth;
+            var num=Math.floor(document.documentElement.clientWidth/iPinW);
+            var oParent=document.getElementById("main");
+            oParent.style.cssText="width:"+iPinW*num+"px;margin:0 auto;";
+            var pinHArr=[];
+            for(var i=0;i<apin.length;i++){
+                var pinH=apin[i].offsetHeight;
+                if(i<num){
+                    pinHArr[i]=pinH;
+                }else{
+                    var minH=Math.min.apply(null,pinHArr);
+                    var minHIndex=getMinHIndex(pinHArr,minH);
+                    apin[i].style.position="absolute";
+                    apin[i].style.top=minH+"px";
+                    apin[i].style.left=apin[minHIndex].offsetLeft+"px";
+                    pinHArr[minHIndex]+=apin[i].offsetHeight;
+                }
+            }
+        }
+        function get(){
+            var obj=document.getElementById("main").getElementsByClassName("pin");
+            var pinS=[];
+            for(var i=0;i<obj.length;i++){
+                pinS.push(obj[i]);
+            }
+            return pinS;
+        }
+
+        function getMinHIndex(arr,minH){
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]==minH){
+                    return i;
+                }
+            }
+        }
+
+        function checkScrollSlide(){
+            var aPin=document.getElementsByTagName("pin");
+            var lastPinH=aPin[aPin.length-1].offsetTop-(Math.floor(aPin[aPin.length-1].offsetHeight)/2);
+            var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+            var documentH=document.documentElement.clientHeight;
+            return(lastPinH<scrollTop+documentH)?true:false;
+        }
+    </script>
+</head>
+
+<body>
+<div id="main">
+    <div class="pin">
+        <div class="box">
+            <img src="image/1.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/2.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/3.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/4.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/5.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/6.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/7.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/8.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/9.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/10.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/11.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/12.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/13.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/14.jpg">
+        </div>
+    </div>
+    <div class="pin">
+        <div class="box">
+            <img src="image/15.jpg">
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
